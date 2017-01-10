@@ -1,9 +1,5 @@
 obj-m := hello.o
-KDIR = /usr/src/$(uname -r)/
-
-all:
-	$(MAKE) -C $(KDIR) M=$(PWD)
-
-.PHONY:clean
-clean:
-	rm -f *.mod.c *mod.o *,ko *.o *.tmp_versions
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
+default:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) hello.ko
